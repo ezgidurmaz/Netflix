@@ -28,40 +28,46 @@ function Featured() {
 
     useEffect(() => {
 
+        const controller = new AbortController();
+        const apiKey = import.meta.env.VITE_TMDB_API_KEY;
+
         const getFeatured = async () => {
 
             try {
 
-                // Netflix Türkiye'de bulunan popüler dizileri getir
                 const response = await fetch(
-                    `https://api.themoviedb.org/3/discover/tv?api_key=${import.meta.env.VITE_TMDB_API_KEY}&language=tr-TR&watch_region=TR&with_watch_providers=8&with_watch_monetization_types=flatrate&sort_by=popularity.desc&page=1`
+                    `https://api.themoviedb.org/3/discover/tv?api_key=${apiKey}&language=tr-TR&watch_region=TR&with_watch_providers=8&with_watch_monetization_types=flatrate&sort_by=popularity.desc&page=1`,
+                    { signal: controller.signal }
                 );
+
+                if (!response.ok) return;
 
                 const data = await response.json();
 
-                // Görseli ve açıklaması olan içerikleri al
-                const candidates = data.results.filter(
+                const candidates = (data.results ?? []).filter(
                     (item) =>
                         item.backdrop_path &&
                         item.overview &&
-                        item.id !== 2316 //Videosu gelmiyor
+                        item.id !== 2316 // hariç tutulan dizi
                 );
 
-                // Her yenilemede farklı bir içerik seçebilmek için karıştır
-                const shuffled = [...candidates].sort(
-                    () => Math.random() - 0.5
-                );
+                // Fisher-Yates karıştırma
+                const shuffled = [...candidates];
+                for (let i = shuffled.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+                }
 
-                // Fragmanı olan ilk içeriği bul
                 for (const item of shuffled) {
 
                     const videoResponse = await fetch(
-                        `https://api.themoviedb.org/3/tv/${item.id}/videos?api_key=${import.meta.env.VITE_TMDB_API_KEY}&language=en-US`
+                        `https://api.themoviedb.org/3/tv/${item.id}/videos?api_key=${apiKey}&language=en-US`,
+                        { signal: controller.signal }
                     );
 
                     const videoData = await videoResponse.json();
 
-                    const trailer = videoData.results.find(
+                    const trailer = videoData.results?.find(
                         (video) =>
                             video.site === "YouTube" &&
                             video.type === "Trailer" &&
@@ -77,7 +83,9 @@ function Featured() {
 
             } catch (error) {
 
-                console.error("Hero verisi alınamadı:", error);
+                if (error.name !== "AbortError") {
+                    console.error("Hero verisi alınamadı:", error);
+                }
 
             }
 
@@ -85,9 +93,10 @@ function Featured() {
 
         getFeatured();
 
+        return () => controller.abort();
+
     }, []);
 
-    // Veri gelene kadar hero gösterme
     if (!movie) {
         return null;
     }
@@ -105,7 +114,7 @@ function Featured() {
             {isHovered && videoKey && (
                 <iframe
                     className="featured-video"
-                    src={`https://www.youtube.com/embed/${videoKey}?autoplay=1&controls=0&rel=0`}
+                    src={`https://www.youtube.com/embed/${videoKey}?autoplay=1&mute=1&controls=0&rel=0&loop=1&playlist=${videoKey}`}
                     title={movie.name}
                     allow="autoplay"
                 />
@@ -143,9 +152,9 @@ function Featured() {
 
                 <div className="featured-buttons">
 
-                    <button>▶ Oynat</button>
+                    <button type="button">▶ Oynat</button>
 
-                    <button>ⓘ Daha Fazla Bilgi</button>
+                    <button type="button">ⓘ Daha Fazla Bilgi</button>
 
                 </div>
 
