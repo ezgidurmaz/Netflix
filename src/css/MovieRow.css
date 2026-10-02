@@ -1,0 +1,140 @@
+.movie-row {
+    background-color: #141414;
+    color: white;
+    padding: 30px 50px;
+}
+
+.movie-row h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.movie-container {
+    position: relative;
+}
+
+.movie-list {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    /* kaydırma sadece burada */
+    scroll-behavior: smooth;
+    /* butonla kayarken yumuşak geçiş */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+.movie-list::-webkit-scrollbar {
+    display: none;
+}
+
+.movie-card {
+    position: relative;
+    flex-shrink: 0;
+    width: 200px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.movie-card:hover {
+    transform: scale(1.04);
+    z-index: 2;
+}
+
+.movie-card img {
+    width: 200px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 20px;
+    display: block;
+}
+
+.movie-meta {
+    display: flex;
+    gap: 12px;
+    color: #ddd;
+    font-size: 13px;
+}
+
+.scroll-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 5;
+    width: 32px;
+    height: 55px;
+    border: none;
+    border-radius: 12px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    font-size: 28px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.scroll-button:hover {
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.scroll-button.left {
+    left: 0;
+}
+
+.scroll-button.right {
+    right: 0;
+}
+
+.movie-hover {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    padding: 40px 10px 10px;
+
+    background: linear-gradient(transparent,
+            rgba(0, 0, 0, 0.95));
+
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.movie-card:hover .movie-hover {
+    opacity: 1;
+}
+
+.movie-hover h3 {
+    margin: 0 0 10px;
+    color: white;
+    font-size: 15px;
+}
+
+.movie-hover-buttons {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 10px;
+}
+
+.movie-hover-buttons button {
+    width: 32px;
+    height: 32px;
+
+    border: 2px solid #777;
+    border-radius: 50%;
+
+    background-color: #2a2a2a;
+    color: white;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.movie-hover-buttons button:hover {
+    border-color: white;
+}
+

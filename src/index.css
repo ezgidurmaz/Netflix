@@ -1,0 +1,12 @@
+html,
+body {
+  background-color: #141414;
+  color: white;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+}
+
+#root {
+  margin: 0;
+  padding-top: 0;
+  --bg: #141414;
+}

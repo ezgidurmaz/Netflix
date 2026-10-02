@@ -1,0 +1,105 @@
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 7px 30px;
+    z-index: 100;
+    background: linear-gradient(to bottom,
+            rgba(0, 0, 0, 0.8),
+            transparent);
+
+    transition: background-color 0.8s ease;
+}
+
+.navbar.scrolled {
+    background-color: rgba(0, 0, 0, 0.95);
+}
+
+.navbar-left {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 100px;
+    height: auto;
+    display: block;
+}
+
+.menu {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.menu span {
+    color: lightgray;
+    font-size: 17px;
+    padding: 8px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.menu span:hover,
+.menu span.active {
+    background-color: #333;
+    color: white;
+}
+
+.navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.navbar-right svg {
+    color: white;
+    font-size: 24px;
+    padding: 4px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.navbar-right svg:hover {
+    background-color: #333;
+}
+
+/* Daha Fazla */
+.more-container {
+    display: none;
+    position: relative;
+}
+
+.more-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 10px;
+    background-color: #222;
+    border-radius: 5px;
+    z-index: 10;
+}
+
+.more-menu span {
+    color: white;
+    white-space: nowrap;
+}
+
+/* Küçük ekran */
+@media (max-width: 900px) {
+    .desktop-item {
+        display: none;
+    }
+
+    .more-container {
+        display: block;
+    }
+}
