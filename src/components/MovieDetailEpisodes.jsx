@@ -1,3 +1,4 @@
+
 const IMAGE_URL = "https://image.tmdb.org/t/p/";
 
 function MovieDetailEpisodes({
@@ -45,6 +46,10 @@ function MovieDetailEpisodes({
                             className="episode-card"
                             key={episode.id}
                         >
+                            <span className="episode-number">
+                                {episode.episode_number}
+                            </span>
+
                             <div className="episode-image">
                                 {episode.still_path ? (
                                     <img
@@ -62,7 +67,7 @@ function MovieDetailEpisodes({
                                     type="button"
                                     title="Bölümü oynat"
                                     aria-label={`${episode.name} bölümünü oynat`}
-                                    onClick={() => {}}
+                                    onClick={() => { }}
                                 >
                                     ▶
                                 </button>
@@ -70,10 +75,7 @@ function MovieDetailEpisodes({
 
                             <div className="episode-info">
                                 <div className="episode-heading">
-                                    <h3>
-                                        {episode.episode_number}.{" "}
-                                        {episode.name}
-                                    </h3>
+                                    <h3>{episode.name}</h3>
 
                                     <span className="episode-runtime">
                                         {episode.runtime
@@ -99,4 +101,4 @@ function MovieDetailEpisodes({
     );
 }
 
-export default MovieDetailEpisodes
+export default MovieDetailEpisodes;
