@@ -30,7 +30,7 @@ function MovieDetailEpisodes({
                             key={item.id}
                             value={item.season_number}
                         >
-                            Sezon {item.season_number}
+                            {item.season_number}.Sezon
                         </option>
                     ))}
             </select>
