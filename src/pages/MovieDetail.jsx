@@ -29,7 +29,6 @@ function MovieDetail() {
 
     const apiKey = import.meta.env.VITE_TMDB_API_KEY;
 
-    // Film veya dizi bilgilerini getir
     useEffect(() => {
         let cancelled = false;
 
@@ -65,7 +64,6 @@ function MovieDetail() {
         };
     }, [type, id, apiKey]);
 
-    // Dizinin sezon bölümlerini getir
     useEffect(() => {
         let cancelled = false;
 
@@ -256,7 +254,7 @@ function MovieDetail() {
         };
     }, [type, id, apiKey]);
 
-    // Escape tuşuyla kapatma ve arka plan kaydırmasını durdurma
+    
     useEffect(() => {
         const handleEscape = (event) => {
             if (event.key === "Escape") {
