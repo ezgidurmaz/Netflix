@@ -599,3 +599,11 @@
     color: #111;
     cursor: pointer;
 }
+
+.episode-number {
+    flex-shrink: 0;
+    width: 24px;
+    color: #d2d2d2;
+    font-size: 22px;
+    text-align: center;
+}
